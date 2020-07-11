@@ -1,0 +1,18 @@
+{
+        "selected_profile":"local",
+        "profiles":
+        {
+                "local":{
+                        "apiBaseUrl": "https://api.opendota.com/api",
+                        "imagesBaseUrl": "http://cdn.dota2.com",
+                        "databasePort": 27017,
+                        "databaseIP": "localhost",
+                        "rootCollection": "DotaSeer"
+                                
+                        },
+                "cloud":{
+                        "apiBaseUrl": "http://cdn.dota2.com",
+                        "databasePort": 27017
+                        }
+        }        
+}
