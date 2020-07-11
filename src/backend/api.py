@@ -15,7 +15,7 @@ class Api:
                 return result.json()
 
         def get_open_dota(self,resource,payload=''):
-                url = self.open_dota_api_base_url                
+                url = self.open_dota_api_base_url
                 return self.get(resource,url,payload=payload)
 
         def get_steam(self,resource,payload='') -> list:
@@ -30,12 +30,12 @@ class Api:
                         prunned_heroes.append(prune_json(hero,selected_keys))
                 return prunned_heroes
 
-        def get_match_details(self) -> list:
-                matches =  self.get_open_dota('/publicMatches')                
+        def get_match_details(self,less_than_match_id=5508335915) -> list:
+                matches =  self.get_open_dota('/publicMatches',payload={'less_than_match_id':less_than_match_id})
                 unitary_matches = []
                 for match in matches:
-                        radiant_match = {'team':'radiand'}
-                        dire_match = {'team':'dire'}
+                        radiant_match = {'match_id': match['match_id'],'team':'radiant'}
+                        dire_match = {'match_id':match['match_id'],'team':'dire'}
                         if match['radiant_win']:
                                 radiant_match['win'] = True
                                 dire_match['win'] = False
@@ -44,6 +44,8 @@ class Api:
                                 dire_match['win'] = True
                         radiant_match['composition'] = match['radiant_team'].split(',')
                         dire_match['composition'] = match['dire_team'].split(',')
+                        radiant_match['composition'] = list(map(int,radiant_match['composition']))
+                        dire_match['composition'] = list(map(int,dire_match['composition']))
                         unitary_matches.append(radiant_match)
                         unitary_matches.append(dire_match)
                 return unitary_matches
