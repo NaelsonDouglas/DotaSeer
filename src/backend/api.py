@@ -42,8 +42,8 @@ class Api:
                         else:
                                 radiant_match['win'] = False
                                 dire_match['win'] = True
-                        radiant_match['composition'] = match['radiant_team']
-                        dire_match['composition'] = match['dire_team']
+                        radiant_match['composition'] = match['radiant_team'].split(',')
+                        dire_match['composition'] = match['dire_team'].split(',')
                         unitary_matches.append(radiant_match)
                         unitary_matches.append(dire_match)
                 return unitary_matches
