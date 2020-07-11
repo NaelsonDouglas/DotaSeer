@@ -14,6 +14,6 @@ class Context:
     def store_heroes(self):        
         from api import Api
         api = Api()        
-        heroes = api.get_heroes()
-        for hero in heroes:
+        heroes = api.get_heroes()        
+        for hero in heroes:            
             self.insert_one(hero,'Heroes')

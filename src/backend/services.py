@@ -6,7 +6,10 @@ configs = Configs()
 context = Context()
 api = Api()
 
-context.store_heroes()
+
+for p in api.get_match_details():
+        print(p)
+#context.store_heroes()
 #data = {'match_id':'1', 'team': 'B'}
 #data = {'match_id':'1', 'team': 'C'}
 #context.insert_one(data,'Matches')      

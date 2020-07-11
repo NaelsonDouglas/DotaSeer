@@ -3,7 +3,9 @@
         "profiles":
         {
                 "local":{
-                        "apiBaseUrl": "https://api.opendota.com/api",
+                        "openDotaApiBaseUrl": "https://api.opendota.com/api",
+                        "steamBaseUrl": "https://api.steampowered.com/IEconDOTA2_570",
+                        "steamApiKey": "NULL",
                         "imagesBaseUrl": "http://cdn.dota2.com",
                         "databasePort": 27017,
                         "databaseIP": "localhost",
