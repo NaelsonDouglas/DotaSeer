@@ -13,9 +13,9 @@ class Api:
 
         def get(self,resource, payload='') -> dict:
                 uri = self.api_base_url+resource                
-                result = requests.get(uri,params=payload)
-                logging.debug(result)
+                result = requests.get(uri,params=payload)                
                 result = result.json()                
+                logging.debug(result)
                 return result
 
 class Steam(Api):
@@ -23,43 +23,45 @@ class Steam(Api):
                 Api.__init__(self,api_base_url)
                 self.api_base_url = self.configs.get(api_base_url)
         
-        def get_match_detail(self,match_id=5508855507):
+        def get_match_detail(self,match_id): #=5508855507
                 logging.debug('Fetching the match which match_id= '+str(match_id))
                 RADIANT = 0
                 DIRE = 1
                 payload = {'match_id':match_id, 'KEY':self.configs.get('steamApiKey')}
-                result = []
-                dire_result = {'match_id':match_id,'team':'dire'}
-                radiant_result = {'match_id':match_id,'team':'radiant'}
+                result = {'_id':match_id}                
                 
-                response = self.get('/GetMatchDetails/V001/',payload=payload)
+                response = self.get('/GetMatchDetails/V001/',payload=payload)                
                 matches = response['result']
                 logging.debug(matches)
-                #logging.warn(matches.keys())
+                
+                if matches['radiant_win']:
+                        result['radiant_win'] = True
+                else:
+                        result['radiant_win'] = False
 
-                radiant_win = matches['radiant_win']
-                radiant_result['win'] = radiant_win
-                dire_result['win'] = not radiant_win
-                dire_heroes = []
-                radiant_heroes = []
-                #print(json.dumps(matches, indent = 4))
                 try: #For some reason, some matches don't have the pick_bans fields
-                        picks_bans = matches['picks_bans']
-                        logging.debug(matches.keys())
+                        picks_bans = matches['picks_bans']                        
                 except:                        
                         logging.warn('Match '+str(match_id)+' does not have the field picks_bans. Skiping it\n')
                         return None
                 
-                for hero in picks_bans:
-                        if hero['is_pick']:
+                dire_heroes = []
+                radiant_heroes = []
+                for hero in picks_bans:                        
+                        if hero['is_pick']:                                
                                 if hero['team'] == RADIANT:
                                         radiant_heroes.append(hero['hero_id'])
                                 elif hero['team'] == DIRE:
                                         dire_heroes.append(hero['hero_id'])
-                radiant_result['composition'] = radiant_heroes
-                dire_result['composition'] = dire_heroes                
-                result.append(radiant_result)
-                result.append(dire_result)                
+                if (len(radiant_heroes) != 5 and len(dire_heroes) != 5):
+                        logging.warn('Match '+str(match_id)+' has unbalanced number of picks. Skiping it\n')
+                        return None
+                
+                radiant_heroes.sort()
+                dire_heroes.sort()
+                result['teams'] = [radiant_heroes, dire_heroes]
+                # result['radiant_heroes'] = radiant_heroes          
+                # result['dire_heroes'] = dire_heroes                
                 return result
 
 class OpenDota(Api):
@@ -96,7 +98,8 @@ class OpenDota(Api):
                 return result
 
         def get_sql_query(self, amount,origin='public_matches',fields='match_id',order_by='start_time'):
-                query = '?sql=select {} from {} where num_mmr > 0 order by {} desc limit {}'.format(fields,origin,order_by,str(amount))
+                query = '?sql=select {} from {} where num_mmr > 0 order by {} desc limit {}'.format(fields,origin,order_by,str(amount))                
+                #query = '?sql=SELECT%0A%20%20%20%20%20%20%20%20%0Amatches.match_id%0AFROM%20matches%0AJOIN%20match_patch%20using(match_id)%0AWHERE%20TRUE%0AAND%20matches.start_time%20>%3D%20extract(epoch%20from%20timestamp%20%272017-09-01T03%3A00%3A00.000Z%27)%0AAND%20matches.start_time%20<%3D%20extract(epoch%20from%20timestamp%20%272020-06-30T03%3A00%3A00.000Z%27)%0AORDER%20BY%20matches.match_id%20NULLS%20LAST%0ALIMIT%20200'
                 query = query.replace(' ','%20')                
                 return query
         

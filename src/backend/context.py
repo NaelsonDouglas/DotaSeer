@@ -10,7 +10,7 @@ class Context:
         self.client = MongoClient(configs.get('databaseIP'), configs.get('databasePort'))
         self.db = self.client['DotaSeer']
 
-        self.matches = self.db['Matches'].create_index([('match_id',DESCENDING), ('team', ASCENDING)], unique = True)
+        #self.matches = self.db['Matches'].create_index(('match_id'), unique = True)
         self.heroes = self.db['Heroes'].create_index('id')
         
     def insert_one(self, data, subcollection):        
@@ -21,4 +21,4 @@ class Context:
         api = OpenDota()        
         heroes = api.get_heroes()        
         for hero in heroes:            
-            self.insert_one(hero,'Heroes')
+            self.insert_one(hero,'Heroes')   
