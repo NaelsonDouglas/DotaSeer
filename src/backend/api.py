@@ -47,8 +47,8 @@ class Steam(Api):
                 
                 dire_heroes = []
                 radiant_heroes = []
-                for hero in picks_bans:                        
-                        if hero['is_pick']:                                
+                for hero in picks_bans:
+                        if hero['is_pick'] and hero['hero_id'] != None:
                                 if hero['team'] == RADIANT:
                                         radiant_heroes.append(hero['hero_id'])
                                 elif hero['team'] == DIRE:
@@ -59,9 +59,13 @@ class Steam(Api):
                 
                 radiant_heroes.sort()
                 dire_heroes.sort()
-                result['teams'] = [radiant_heroes, dire_heroes]
-                # result['radiant_heroes'] = radiant_heroes          
-                # result['dire_heroes'] = dire_heroes                
+                # result['teams'] = [radiant_heroes, dire_heroes]
+                #for suffix in ['-1', '-2','-3','-4','-5']:
+                if (len(radiant_heroes) == 5 and len(dire_heroes) == 5):
+                        for radiant_suffix in range(1,len(radiant_heroes)+1):
+                                result['R'+str(radiant_suffix)] = radiant_heroes[radiant_suffix-1]
+                        for dire_suffix in range(1,len(dire_heroes)+1):
+                                result['D'+str(dire_suffix)] = dire_heroes[dire_suffix-1]                
                 return result
 
 class OpenDota(Api):
