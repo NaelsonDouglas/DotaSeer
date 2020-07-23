@@ -21,4 +21,5 @@ import pandas as pd
 
 
 knn = Knn(7)
-knn.plot3D()
+print(knn.classifier.predict([2],[600]))
+
