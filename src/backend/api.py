@@ -86,9 +86,9 @@ class OpenDota(Api):
                 response = self.get('/explorer'+query)['rows']                
                 return response
 
-        def get_sql_query(self, amount,origin='matches',fields='match_id, radiant_score, dire_score, radiant_win, duration',order_by='start_time'):
+        def get_sql_query(self, amount,origin='matches',duration=3000,fields='match_id, radiant_score, dire_score, radiant_win, duration',order_by='start_time'):
                 #query = '?sql=select {} from {} where num_mmr > 0 order by {} desc limit {}'.format(fields,origin,order_by,str(amount))                
-                query = '?sql=select {} from {}  order by {} desc limit {}'.format(fields,origin,order_by,str(amount))
+                query = '?sql=select {} from {} WHERE duration>{} order by {} desc limit {}'.format(fields,origin,duration,order_by,str(amount))
                 query = query.replace(' ','%20')                
                 return query
         

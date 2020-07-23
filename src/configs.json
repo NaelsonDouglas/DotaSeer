@@ -5,7 +5,7 @@
                 "local":{
                         "openDotaApiBaseUrl": "https://api.opendota.com/api",
                         "steamBaseUrl": "https://api.steampowered.com/IDOTA2Match_570",
-                        "steamApiKey": "null",
+                        "steamApiKey": "NULL",
                         "imagesBaseUrl": "http://cdn.dota2.com",
                         "databasePort": 27017,
                         "databaseIP": "localhost",

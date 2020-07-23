@@ -13,11 +13,12 @@ import pandas as pd
 
 #random_forest = RandomForest()
 #data_extractor = DataExtractor()
-#data_extractor.import_matches(100000)
+#data_extractor.import_matches(10000)
 #api = OpenDota()
 #api.get_matches()
-tables_manager = Tables()
-print(tables_manager.get_all_matches())
+#tables_manager = Tables()
+#print(tables_manager.get_all_matches())
 
 
 knn = Knn(7)
+knn.plot3D()
