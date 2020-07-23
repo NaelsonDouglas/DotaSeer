@@ -2,13 +2,14 @@ from tables_manager import Tables
 from classifier import Classifier
 from sklearn.neighbors import KNeighborsClassifier
 
-class Knn(Classifier):]
+class Knn(Classifier):
         def __init__(self,k):
-                super().__init__()
+                super().__init__(False)
                 self.k = k
                 self.classifier = KNeighborsClassifier(n_neighbors=self.k)
                 self.train()
                 self.results()
+                self.dummy = True
         
         def print_results(self):
                 print('=====================')
