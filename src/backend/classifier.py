@@ -6,18 +6,11 @@ import pandas as pd
 
 class Classifier:
         def __init__(self,is_dummy):
-                self.tables_manager = Tables(is_dummy)                
+                self.tables_manager = Tables()
                 self.data = self.tables_manager.get_all_matches().dropna()
-                logging.info(self.data.head())
-                if is_dummy:
-                        self.x = self.data[range(1,130)].values                        
-                        self.y = self.data[['win']].values
-                else:
-                        self.x = self.data[['R1','R2','R3','R4','R5','D1','D2','D3','D4','D5']].values
-                        self.y = self.data[['radiant_win']].values
-                        #self.x = self.data[['R1','R2','R3','R4','R5']].values                
-                
-                
+                logging.info(self.data.head())                
+                self.x = self.data[['radiant_score', 'dire_score','duration']].values
+                self.y = self.data[['radiant_win']].values
                 logging.info(self.x)
                 logging.info(self.y)
                 self.test_size=0.3

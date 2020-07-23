@@ -11,14 +11,13 @@ class DataExtractor:
                 self.context = Context()
 
         def import_matches(self,amount):
-                match_ids = self.open_dota.get_matches_ids(amount)
+                matches = self.open_dota.get_matches(amount)
                 match_collection = self.context.db.get_collection('Matches')
-                for match_id in match_ids:
-                        if match_collection.count_documents({ '_id': match_id }, limit = 1) == 0:
-                                logging.debug('Accessing Steam to get info about match '+str(match_id))
-                                splited_match = self.steam.get_match_detail(match_id)                
-                                if splited_match != None:
-                                        logging.info('Inserting match '+str(splited_match['_id'])+' on database.')
-                                        self.context.insert_one(splited_match,'Matches')
+                for match in matches:
+                        if match_collection.count_documents({ '_id': match['match_id'] }, limit = 1) == 0:                                
+                                logging.info('Inserting match '+str(match['match_id'])+' on database.')
+                                match['_id'] = match['match_id']
+                                match.pop('match_id')
+                                self.context.insert_one(match,'Matches')
                         else:
-                                logging.warn('Match '+str(match_id)+' already on database.')
+                                logging.warn('Match '+str(match)+' already on database.')

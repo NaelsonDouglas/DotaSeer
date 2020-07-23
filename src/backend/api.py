@@ -79,52 +79,16 @@ class OpenDota(Api):
                 for hero in heroes:
                         prunned_heroes.append(prune_json(hero,selected_keys))
                 return prunned_heroes
+        
 
-        def get_matches_details(self,less_than_match_id=5508335915) -> list:
-                matches =  self.get('/publicMatches', payload={'less_than_match_id':less_than_match_id})
-                unitary_matches = []
-                min_match_id = 999999999999999999
-                for match in matches:
-                        split_match = self.split_match(match,min_match_id)
-                        if split_match['min_match_id'] < min_match_id:
-                                min_match_id = split_match['min_match_id']
-                        for m in split_match['unitary_matches']:
-                                unitary_matches.append(m)
-                result = {'unitary_matches':unitary_matches,'min_match_id':min_match_id}
-                return result
-
-        def get_matches_ids(self,amount=100):        
+        def get_matches(self,amount=1000):        
                 query = self.get_sql_query(amount)        
-                response = self.get('/explorer'+query)['rows']
-                result = []
-                for match in response:
-                        result.append(match['match_id'])
-                return result
+                response = self.get('/explorer'+query)['rows']                
+                return response
 
-        def get_sql_query(self, amount,origin='public_matches',fields='match_id',order_by='start_time'):
-                query = '?sql=select {} from {} where num_mmr > 0 order by {} desc limit {}'.format(fields,origin,order_by,str(amount))                
-                #query = '?sql=SELECT%0A%20%20%20%20%20%20%20%20%0Amatches.match_id%0AFROM%20matches%0AJOIN%20match_patch%20using(match_id)%0AWHERE%20TRUE%0AAND%20matches.start_time%20>%3D%20extract(epoch%20from%20timestamp%20%272017-09-01T03%3A00%3A00.000Z%27)%0AAND%20matches.start_time%20<%3D%20extract(epoch%20from%20timestamp%20%272020-06-30T03%3A00%3A00.000Z%27)%0AORDER%20BY%20matches.match_id%20NULLS%20LAST%0ALIMIT%20200'
+        def get_sql_query(self, amount,origin='matches',fields='match_id, radiant_score, dire_score, radiant_win, duration',order_by='start_time'):
+                #query = '?sql=select {} from {} where num_mmr > 0 order by {} desc limit {}'.format(fields,origin,order_by,str(amount))                
+                query = '?sql=select {} from {}  order by {} desc limit {}'.format(fields,origin,order_by,str(amount))
                 query = query.replace(' ','%20')                
                 return query
         
-        def split_match(self, match, min_match_id):
-                unitary_matches = []
-                match_id = match['match_id']
-                if match_id < min_match_id:
-                        min_match_id = match_id
-                radiant_match = {'match_id':match_id,'team':'radiant'}
-                dire_match = {'match_id':match_id,'team':'dire'}
-                if match['radiant_win']:
-                        radiant_match['win'] = True
-                        dire_match['win'] = False
-                else:
-                        radiant_match['win'] = False
-                        dire_match['win'] = True
-                radiant_match['composition'] = match['radiant_team'].split(',')
-                dire_match['composition'] = match['dire_team'].split(',')
-                radiant_match['composition'] = list(map(int,radiant_match['composition']))
-                dire_match['composition'] = list(map(int,dire_match['composition']))
-                unitary_matches.append(radiant_match)
-                unitary_matches.append(dire_match)                
-                result = { 'unitary_matches':unitary_matches,'min_match_id':min_match_id}
-                return result
