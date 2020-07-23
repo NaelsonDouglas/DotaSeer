@@ -49,6 +49,9 @@ class Classifier:
         def train(self):
                 self.classifier.fit(self.x_train, self.y_train.ravel())
         
+        def predict(self,user_input):
+                return self.classifier.predict(user_input)
+        
         def results(self):                
                 self.result = self.classifier.predict(self.x_test)                
                 self.confusion_matrix = pd.crosstab(self.y_test.ravel(),self.result, rownames=['Real'], colnames=['Predito'], margins=True)

@@ -8,6 +8,7 @@ from api import OpenDota
 from data_extractor import DataExtractor
 #from random_forest import RandomForest
 import pandas as pd
+from public_api import PublicApi
 
 
 
@@ -20,6 +21,10 @@ import pandas as pd
 #print(tables_manager.get_all_matches())
 
 
-knn = Knn(7)
-print(knn.classifier.predict([2],[600]))
+#knn = Knn(7)
+
+#user_input = [[2,2,300]]
+#print(knn.predict(user_input))
+public_api = PublicApi()
+public_api.start()
 
