@@ -30,6 +30,20 @@ class App extends React.Component {
 
   submitHandle = event => { 
     event.preventDefault();
+    
+    const match = {
+      radiant_score: this.state.radiant_score,
+      dire_score: this.state.dire_score,
+      duration: this.state.duration,
+    };
+
+    const url = `http://127.0.0.1:8080/api/predict`
+    axios.post(url, null,{params:match})
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+
     console.log("aaaaaaaaaaaa");
     this.setState({result:20})
 
