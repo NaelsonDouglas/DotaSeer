@@ -5,7 +5,7 @@ class App extends React.Component {
 
   constructor(props){
     super(props);
-    this.state = { radiant_score: 0, dire_score: 0, duration:0, result:'*' };
+    this.state = { radiant_score: 0, dire_score: 0, duration:0, result:'' };
   } 
  
   radiantHandleChange = event => {
@@ -45,37 +45,45 @@ class App extends React.Component {
     return (
       
       <React.Fragment >        
-        <form onSubmit={this.submitHandle} style={{textAlign:"center", display:"block",alignContent:"center", backgroundColor:"black"}}>
-          <label htmlFor="radiant_score" style={{color:"green"}}>radiant_score</label>
+        <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      }}>
+      <form onSubmit={this.submitHandle} style={{textAlign:"center", display:"block",alignContent:"center", backgroundColor:"black"}}>
+          <p>          
           <input
             type="number"
+            placeholder="Radiant  Score"
             name="radiant_score"            
+            style={{borderColor: 'green', color: 'green'}}
             onChange={this.radiantHandleChange}
           />
-          <div></div>
-          
-          <label htmlFor="dire_score" style={{color:"red"}}>dire_score</label>
+          </p>          
+          <p>          
           <input
             type="number"
+            placeholder="Dire  Score"
             name="dire_score"            
+            style={{borderColor: 'red', color: 'red'}}
             onChange={this.direHandleChange}
           />
-          <div></div>
-          <label htmlFor="duration" style={{color:"white"}}>duration</label>
+          </p>          
           <input
-            type="number"
+            type="number"            
+            placeholder="Duration -min 1200(s)- "
             name="duration"            
-            onChange={this.durationHandleChange}
+            min="1200"
+            onChange={this.durationHandleChange}            
           />
-          <div></div>
+          <p>
           <input type="submit" value="Predict" style={{ marginLeft: "auto" }}/>
-          <h3 style={{color:"white"}}>Result: {this.state.result}</h3>        
-        </form> 
+          <h3 style={{color: 'white'}}>Result: {this.state.result}</h3>        
+          </p>
+        </form>
+          <img alignContent="center" style={{width:"50%"}}  src={require('./data.png')}/>        
           
-        {/* <h3>Radiant score: {this.state.radiant_score}</h3>
-        <h3>Radiant score: {this.state.dire_score}</h3>
-        <h3>Duration: {this.state.duration}</h3> */}
-        
+        </div>
       </React.Fragment>      
     );
   }

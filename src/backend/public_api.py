@@ -11,7 +11,7 @@ class PublicApi():
                 self.app = flask.Flask(__name__)
                 CORS(self.app)
                 self.app.config["DEBUG"] = True
-                self.knn = Knn(7)
+                self.knn = Knn(7)                
 
         def start(self):
                 @self.app.route('/api/predict', methods=['POST'])

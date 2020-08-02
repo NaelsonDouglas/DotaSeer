@@ -23,6 +23,7 @@ from public_api import PublicApi
 
 #knn = Knn(7)
 
+
 #user_input = [[2,2,300]]
 #print(knn.predict(user_input))
 public_api = PublicApi()
