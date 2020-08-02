@@ -1,11 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 
-class App extends React.Component {
-
+class App extends React.Component {  
   constructor(props){
-    super(props);
-    this.state = { radiant_score: 0, dire_score: 0, duration:0, result:'', k:3 };
+    super(props);    
+    this.state = { radiant_score: 0, dire_score: 0, duration:0, result:'', k:3};
   } 
  
   radiantHandleChange = event => {
@@ -44,6 +43,7 @@ class App extends React.Component {
         console.log(res);
         console.log(res.data);        
         this.setState({result:res.data.result})
+
       })
   };   
  
@@ -78,24 +78,25 @@ class App extends React.Component {
             onChange={this.durationHandleChange}            
           />
           <p>
+            <label style={{color:"white"}}>K=</label>
             <input
               type="number"            
               placeholder="K"
-              defaultValue="1"
+              defaultValue="3"
               name="k"            
               min="1"
               onChange={this.kHandleChange}    
             />
           </p>          
-          <input type="submit" value="Predict" style={{ marginLeft: "auto" }}/>
-          <h3 style={{color: 'white'}}>Result: {this.state.result}</h3>                  
-        </form>
+          <input type="submit" value="Predict" style={{ marginLeft: "auto" }}/>          
+          {/* <h3 style={{color: 'white'}}>Result: {this.state.result}</h3> */}
+        </form>        
         <div style={{
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       }}> 
-          <img alignContent="center" style={{width:"70%"}}  src={require('./data.png')}/>
+          <img alignContent="center" style={{width:"100%"}}  src={require('./data.png')}/>
         </div>
       </React.Fragment>      
     );

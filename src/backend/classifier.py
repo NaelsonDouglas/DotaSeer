@@ -36,14 +36,29 @@ class Classifier:
                 plot3D.set_zlabel('duration')
                 plt.show()
         
-        def plot2D(self):                
+        def plot2D(self,x=-1,y=-1,winner=''):
                 self.data['diff'] = self.data['radiant_score'] - self.data['dire_score']
-                plt.scatter(self.data[self.data.radiant_win == 0]['diff'],self.data[self.data.radiant_win == 0]['duration'],marker='<',facecolor='none', edgecolors='r', alpha=0.7)
-                plt.scatter(self.data[self.data.radiant_win == 1]['diff'],self.data[self.data.radiant_win == 1]['duration'],marker='>',facecolor='none',edgecolors='g', alpha=0.3)
+                plt.figure(figsize=(20,6))
+                plt.grid(axis='both', alpha=0.2)                
+
+                plt.scatter(self.data[self.data.radiant_win == 0]['diff'],self.data[self.data.radiant_win == 0]['duration'],marker='<',facecolor='none', edgecolors='r', alpha=0.7, label='Dire wins')                
+                plt.scatter(self.data[self.data.radiant_win == 1]['diff'],self.data[self.data.radiant_win == 1]['duration'],marker='>',facecolor='none',edgecolors='g', alpha=0.3, label='Radiant wins')                
                                 
                 plt.xlabel('radiant_score - dire_score')
                 plt.ylabel('match duration (s)')
-                plt.show()
+                
+                if x!=-1 or y!= -1:
+                        plt.axvline(x=x,alpha=0.5)                        
+                        plt.axhline(y=y,alpha=0.5)
+                        point = plt.scatter(x,y,marker='x',facecolor='black',edgecolors='black', alpha=1,label='User data'+'('+str(x)+','+str(y)+')')
+                        if winner.find('Dire') == -1:
+                                plt.title(winner,fontdict={'color':'green'})
+                        else:
+                                plt.title(winner,fontdict={'color':'red'})
+                        plt.legend()
+                        plt.savefig('../frontend/src/data.png')
+                else:
+                        plt.show()
                 
                 
         def train(self):

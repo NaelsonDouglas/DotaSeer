@@ -29,7 +29,9 @@ class PublicApi():
                                 if result[0] == 1:
                                         text_result = 'Radiant wins!'
                                 else:
-                                        text_result = 'Dire wins!'
+                                        text_result = 'Dire wins!'                                        
+                                        
+                                self.knn.plot2D(radiant_score-dire_score,duration,text_result)
                                 return str('{"result": \"'+text_result+'\"}')
                         else:
                                 return "Missed a field"
