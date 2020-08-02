@@ -91,7 +91,10 @@ class App extends React.Component {
               onChange={this.kHandleChange}    
             />
           </p>          
-          <input type="submit" value="Predict" style={{ marginLeft: "auto" }}/>          
+          <input type="submit" value="Predict" style={{ marginLeft: "auto",padding:"15px 90px", cursor:"pointer"}}/>          
+          <br></br>
+          -
+          
           {/* <h3 style={{color: 'white'}}>Result: {this.state.result}</h3> */}
         </form>        
         <div style={{
