@@ -50,7 +50,11 @@ class Classifier:
                 if x!=-1 or y!= -1:
                         plt.axvline(x=x,alpha=0.5)                        
                         plt.axhline(y=y,alpha=0.5)
-                        point = plt.scatter(x,y,marker='x',facecolor='black',edgecolors='black', alpha=1,label='User data'+'('+str(x)+','+str(y)+')')
+                        plt.scatter(x,y,marker='x',facecolor='black',edgecolors='black', alpha=1,label='User data'+'('+str(x)+','+str(y)+')')
+                        plt.annotate('y='+str(y), 
+                                                        xy=(45, 40), 
+                                                        xytext=(45,y), 
+                                                        arrowprops = dict(facecolor=None, shrink=0.05))
                         if winner.find('Dire') == -1:
                                 plt.title(winner,fontdict={'color':'green'})
                         else:

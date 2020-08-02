@@ -56,6 +56,7 @@ class App extends React.Component {
           <input
             type="number"
             placeholder="Radiant  Score"
+            defaultValue="30"
             name="radiant_score"            
             style={{borderColor: 'green', color: 'green'}}
             onChange={this.radiantHandleChange}
@@ -65,7 +66,8 @@ class App extends React.Component {
           <input
             type="number"
             placeholder="Dire  Score"
-            name="dire_score"            
+            name="dire_score" 
+            defaultValue="30"           
             style={{borderColor: 'red', color: 'red'}}
             onChange={this.direHandleChange}
           />
@@ -74,6 +76,7 @@ class App extends React.Component {
             type="number"            
             placeholder="Duration -min 1200(s)- "
             name="duration"            
+            defaultValue="1200"
             min="1200"
             onChange={this.durationHandleChange}            
           />
