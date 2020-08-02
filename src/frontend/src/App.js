@@ -44,12 +44,7 @@ class App extends React.Component {
   render() {
     return (
       
-      <React.Fragment >        
-        <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      }}>
+      <React.Fragment >                
       <form onSubmit={this.submitHandle} style={{textAlign:"center", display:"block",alignContent:"center", backgroundColor:"black"}}>
           <p>          
           <input
@@ -81,8 +76,12 @@ class App extends React.Component {
           <h3 style={{color: 'white'}}>Result: {this.state.result}</h3>        
           </p>
         </form>
-          <img alignContent="center" style={{width:"50%"}}  src={require('./data.png')}/>        
-          
+        <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      }}> 
+          <img alignContent="center" style={{width:"65%"}}  src={require('./data.png')}/>
         </div>
       </React.Fragment>      
     );

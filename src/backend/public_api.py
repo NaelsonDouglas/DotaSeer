@@ -23,7 +23,12 @@ class PublicApi():
                                 duration = int(request.args['duration'])
                                 result = self.knn.predict([[radiant_score,dire_score,duration]])
                                 logging.info(result[0])
-                                return str('{"result": '+str(result[0])+'}')
+                                text_result = ''
+                                if result[0] == 1:
+                                        text_result = 'Radiant wins!'
+                                else:
+                                        text_result = 'Dire wins!'
+                                return str('{"result": \"'+text_result+'\"}')
                         else:
                                 return "Missed a field"
                 self.app.run(host='0.0.0.0', port=8080)

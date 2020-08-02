@@ -38,8 +38,8 @@ class Classifier:
         
         def plot2D(self):                
                 self.data['diff'] = self.data['radiant_score'] - self.data['dire_score']
-                plt.scatter(self.data[self.data.radiant_win == 0]['diff'],self.data[self.data.radiant_win == 0]['duration'],marker='<',facecolor='none', edgecolors='g', alpha=0.7)
-                plt.scatter(self.data[self.data.radiant_win == 1]['diff'],self.data[self.data.radiant_win == 1]['duration'],marker='>',facecolor='none',edgecolors='r', alpha=0.3)
+                plt.scatter(self.data[self.data.radiant_win == 0]['diff'],self.data[self.data.radiant_win == 0]['duration'],marker='<',facecolor='none', edgecolors='r', alpha=0.7)
+                plt.scatter(self.data[self.data.radiant_win == 1]['diff'],self.data[self.data.radiant_win == 1]['duration'],marker='>',facecolor='none',edgecolors='g', alpha=0.3)
                                 
                 plt.xlabel('radiant_score - dire_score')
                 plt.ylabel('match duration (s)')

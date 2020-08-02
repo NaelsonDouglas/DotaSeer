@@ -21,7 +21,7 @@ from public_api import PublicApi
 #print(tables_manager.get_all_matches())
 
 
-#knn = Knn(7)
+knn = Knn(7)
 
 
 #user_input = [[2,2,300]]
