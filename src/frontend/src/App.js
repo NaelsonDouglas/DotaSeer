@@ -5,7 +5,7 @@ class App extends React.Component {
 
   constructor(props){
     super(props);
-    this.state = { radiant_score: 0, dire_score: 0, duration:0, result:'' };
+    this.state = { radiant_score: 0, dire_score: 0, duration:0, result:'', k:3 };
   } 
  
   radiantHandleChange = event => {
@@ -23,6 +23,11 @@ class App extends React.Component {
     this.setState({ duration: event.target.value });
   };
 
+  kHandleChange = event => {
+    event.preventDefault();
+    this.setState({ k: event.target.value });
+  };
+
   submitHandle = event => { 
     event.preventDefault();
     
@@ -30,6 +35,7 @@ class App extends React.Component {
       radiant_score: this.state.radiant_score,
       dire_score: this.state.dire_score,
       duration: this.state.duration,
+      k: this.state.k
     };
 
     const url = `http://127.0.0.1:8080/api/predict`
@@ -46,7 +52,7 @@ class App extends React.Component {
       
       <React.Fragment >                
       <form onSubmit={this.submitHandle} style={{textAlign:"center", display:"block",alignContent:"center", backgroundColor:"black"}}>
-          <p>          
+          
           <input
             type="number"
             placeholder="Radiant  Score"
@@ -54,8 +60,8 @@ class App extends React.Component {
             style={{borderColor: 'green', color: 'green'}}
             onChange={this.radiantHandleChange}
           />
-          </p>          
-          <p>          
+          
+          
           <input
             type="number"
             placeholder="Dire  Score"
@@ -63,7 +69,7 @@ class App extends React.Component {
             style={{borderColor: 'red', color: 'red'}}
             onChange={this.direHandleChange}
           />
-          </p>          
+          
           <input
             type="number"            
             placeholder="Duration -min 1200(s)- "
@@ -72,16 +78,24 @@ class App extends React.Component {
             onChange={this.durationHandleChange}            
           />
           <p>
+            <input
+              type="number"            
+              placeholder="K"
+              defaultValue="1"
+              name="k"            
+              min="1"
+              onChange={this.kHandleChange}    
+            />
+          </p>          
           <input type="submit" value="Predict" style={{ marginLeft: "auto" }}/>
-          <h3 style={{color: 'white'}}>Result: {this.state.result}</h3>        
-          </p>
+          <h3 style={{color: 'white'}}>Result: {this.state.result}</h3>                  
         </form>
         <div style={{
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       }}> 
-          <img alignContent="center" style={{width:"65%"}}  src={require('./data.png')}/>
+          <img alignContent="center" style={{width:"70%"}}  src={require('./data.png')}/>
         </div>
       </React.Fragment>      
     );

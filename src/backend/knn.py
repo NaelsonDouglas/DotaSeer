@@ -11,6 +11,10 @@ class Knn(Classifier):
                 self.results()
                 self.dummy = True
         
+        def set_k(self, k):
+                self.k = k
+                self.classifier.set_params(n_neighbors=k)
+        
         def print_results(self):
                 print('=====================')
                 print('Algorithm: knn')
