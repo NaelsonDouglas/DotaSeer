@@ -1,0 +1,34 @@
+version: "3.3"
+networks:
+  dota_net:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 183.120.120.1/10   
+volumes:
+      plots:
+services:
+  db_server:
+    image: mongo
+    container_name: db_server
+    restart: always
+    ports:
+      - "27017:27017"
+    networks:
+      dota_net:
+        ipv4_address: 183.120.120.1
+
+  backend_server:
+    build:
+      "./backend"
+    image: dotaseer-backend
+    container_name: backend_server
+    volumes:
+      - plots:/app/plots/
+    networks:
+      dota_net:
+          ipv4_address: 183.120.120.3
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db_server

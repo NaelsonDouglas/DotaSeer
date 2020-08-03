@@ -62,7 +62,7 @@ class Classifier:
                         else:
                                 plt.title(winner,fontdict={'color':'red'})
                         plt.legend()
-                        plt.savefig('../frontend/src/data.png')
+                        plt.savefig('plots/plot.png')
                 else:
                         plt.show()
                 
