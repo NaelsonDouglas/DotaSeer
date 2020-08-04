@@ -13,17 +13,13 @@ from public_api import PublicApi
 
 
 #random_forest = RandomForest()
-#data_extractor = DataExtractor()
-#data_extractor.import_matches(1000000)
+data_extractor = DataExtractor()
+data_extractor.import_matches(1000)
 #api = OpenDota()
 #api.get_matches()
-#tables_manager = Tables()
+tables_manager = Tables()
 #print(tables_manager.get_all_matches())
-
-
-knn = Knn(7)
-
-
+#knn = Knn(7)
 #user_input = [[2,2,300]]
 #print(knn.predict(user_input))
 public_api = PublicApi()

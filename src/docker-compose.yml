@@ -16,7 +16,12 @@ services:
       - "27017:27017"
     networks:
       dota_net:
-        ipv4_address: 183.120.120.1
+        ipv4_address: 183.120.120.1   
+    
+  backend_server_base:
+    build:
+      "./backend/backend_base/"
+    image: dotaseer-backend-base
 
   backend_server:
     build:
@@ -30,5 +35,24 @@ services:
           ipv4_address: 183.120.120.3
     ports:
       - "8080:8080"
+    depends_on:
+      - db_server
+      - backend_server_base
+
+  frontend_server:
+    build:
+      "./frontend"
+    image: dotaseer-frontend
+    container_name: frontend_server
+    working_dir:
+      "/app"
+    volumes:
+      - plots:/app/src/plot/
+    stdin_open: true
+    networks:
+      dota_net:
+          ipv4_address: 183.120.120.4
+    ports:
+      - "3000:3000"
     depends_on:
       - db_server

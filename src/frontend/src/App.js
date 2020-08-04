@@ -37,7 +37,7 @@ class App extends React.Component {
       k: this.state.k
     };
 
-    const url = `http://127.0.0.1:8080/api/predict`
+    const url = `http://183.120.120.3:8080/api/predict`
     axios.post(url, null,{params:match})
       .then(res => {
         console.log(res);
@@ -55,8 +55,7 @@ class App extends React.Component {
           
           <input
             type="number"
-            placeholder="Radiant  Score"
-            defaultValue="30"
+            placeholder="Radiant  Score"            
             name="radiant_score"            
             style={{borderColor: 'green', color: 'green'}}
             onChange={this.radiantHandleChange}
@@ -66,8 +65,7 @@ class App extends React.Component {
           <input
             type="number"
             placeholder="Dire  Score"
-            name="dire_score" 
-            defaultValue="30"           
+            name="dire_score"                      
             style={{borderColor: 'red', color: 'red'}}
             onChange={this.direHandleChange}
           />
@@ -75,8 +73,7 @@ class App extends React.Component {
           <input
             type="number"            
             placeholder="Duration -min 1200(s)- "
-            name="duration"            
-            defaultValue="1200"
+            name="duration"                        
             min="1200"
             onChange={this.durationHandleChange}            
           />
@@ -102,7 +99,7 @@ class App extends React.Component {
                       alignItems: 'center',
                       justifyContent: 'center',
                       }}> 
-          <img alignContent="center" style={{width:"100%"}}  src={require('./data.png')}/>
+          <img alignContent="center" style={{width:"100%"}} alt="Data plot" src={require('./plot/plot.png')}/>
         </div>
       </React.Fragment>      
     );

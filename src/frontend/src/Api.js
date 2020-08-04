@@ -7,7 +7,7 @@ class Result extends Component {
     };
     
     componentDidMount(){
-        const url = 'http://127.0.0.1:8080/api/predict?radiant_score=1&dire_score=10&duration=5000'
+        const url = 'http://183.120.120.3:8080/api/predict?radiant_score=1&dire_score=10&duration=5000'
         const params = {'radiant_score':'1','dire_score':'2','duration':'3'}
         axios.post(url).then(res => {
             console.log(res.data);
