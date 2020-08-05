@@ -37,7 +37,7 @@ class App extends React.Component {
       k: this.state.k
     };
 
-    const url = `http://183.120.120.3:8080/api/predict`
+    const url = `http://35.225.42.57:8080/api/predict`
     axios.post(url, null,{params:match})
       .then(res => {
         console.log(res);
