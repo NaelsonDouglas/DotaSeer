@@ -57,7 +57,7 @@ class App extends React.Component {
             <p><label style={{color:"white"}}>Each team must defend their ancient, therefore, they are called Defenders of the Ancients(DOTA)</label></p>
             <p><label style={{color:"white"}}>When a player from the Dire team dies, Radiant scores one point and the same happens to Dire when a member of the Radiant team dies.</label></p>
             <p><label style={{color:"white"}}>It's quite obvious to say a team with bigger score has more chances to win, but there's a popular say among Dota players where it's said 'score doesn't matter on long matches'. That's because on long matches, each team is already playing on the highest level, so killing more or less  doesnt  inflict  such big difference.</label></p>
-            <p><label style={{color:"white"}}>This predictor uses 3 variables Radiant Score, Team Score and Match duration(s) to predict  which team wins  given the situation.</label></p>
+            <p><label style={{color:"white"}}>This predictor uses 3 variables: Radiant Score, Dire Score and Match duration(s) to predict  which team wins  given the situation.</label></p>
       </p>
           <input
             type="number"
