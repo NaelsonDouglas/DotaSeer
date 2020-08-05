@@ -81,12 +81,12 @@ class OpenDota(Api):
                 return prunned_heroes
         
 
-        def get_matches(self,amount=1000):        
+        def get_matches(self,amount=10000):        
                 query = self.get_sql_query(amount)        
                 response = self.get('/explorer'+query)['rows']                
                 return response
 
-        def get_sql_query(self, amount,origin='matches',duration=3000,fields='match_id, radiant_score, dire_score, radiant_win, duration',order_by='start_time'):
+        def get_sql_query(self, amount,origin='matches',duration=1000,fields='match_id, radiant_score, dire_score, radiant_win, duration',order_by='start_time'):
                 #query = '?sql=select {} from {} where num_mmr > 0 order by {} desc limit {}'.format(fields,origin,order_by,str(amount))                
                 query = '?sql=select {} from {} WHERE duration>{} order by {} desc limit {}'.format(fields,origin,duration,order_by,str(amount))
                 query = query.replace(' ','%20')                
