@@ -2,7 +2,7 @@ matplotlib==3.1.1
 pandas==0.25.0
 Flask==1.1.2
 Flask-API==2.0
-Flask-Cors==3.0.8
+Flask-Cors==3.0.9
 Flask-PyMongo==2.3.0
 requests==2.21.0
 colorlog==4.1.0
